@@ -6,11 +6,22 @@ import "./index.css";
 import App from "./App.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
+import AddCoffee from "./Pages/AddCoffee.jsx";
+import UpdateCoffee from "./Pages/UpdateCoffee.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/add-coffee",
+    element: <AddCoffee />,
+  },
+  {
+    path: "/update-coffee",
+    element: <UpdateCoffee />,
   },
 ]);
 
