@@ -1,5 +1,5 @@
 /** @format */
-
+import toast, { Toaster } from "react-hot-toast";
 import React from "react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -41,6 +41,10 @@ const AddCoffee = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Coffee added successfully:", data);
+        if (data.insertedId) {
+          toast.success("Coffee added successfully!");
+          form.reset(); // Reset the form after successful submission
+        }
       })
       .catch((error) => {
         console.error("Error adding coffee:", error);
@@ -59,9 +63,10 @@ const AddCoffee = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="name"
               >
-                Name
+                Coffee Name
               </label>
               <Input
+                required
                 type="text"
                 id="name"
                 placeholder="Enter Coffee Name"
@@ -71,6 +76,7 @@ const AddCoffee = () => {
 
             <div className="mb-4">
               <label
+                required
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="quantity"
               >
@@ -95,6 +101,7 @@ const AddCoffee = () => {
                 Supplier Name
               </label>
               <Input
+                required
                 type="text"
                 id="supplier"
                 placeholder="Supplier name"
@@ -176,6 +183,7 @@ const AddCoffee = () => {
             >
               Add Coffee
             </Button>
+            <Toaster position="top-center" reverseOrder={false} />
           </div>
         </form>
       </div>
