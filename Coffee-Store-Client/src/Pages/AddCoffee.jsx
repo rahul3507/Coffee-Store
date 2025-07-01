@@ -5,12 +5,37 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 
 const AddCoffee = () => {
+  const handleAddCoffee = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.name.value;
+    const quantity = form.quantity.value;
+    const supplier = form.supplier.value;
+    const taste = form.taste.value;
+    const category = form.category.value;
+    const details = form.details.value;
+    const photoUrl = form.photoUrl.value;
+
+    const newCoffee = {
+      name,
+      quantity,
+      supplier,
+      taste,
+      category,
+      details,
+      photoUrl,
+    };
+
+    // Logic to handle adding coffee goes here
+    console.log("Coffee added:", newCoffee);
+  };
   return (
     <div className="justify-center items-center p-4 flex min-h-screen ">
       <div className="bg-[#F4F3F0]  min-w-full md:min-w-xl lg:min-w-2xl xl:min-w-3xl  m-auto   rounded-lg p-6">
         <h1 className="text-3xl text-center font-bold">Add Coffee</h1>
 
-        <form className="mt-4">
+        <form className="mt-4" onSubmit={handleAddCoffee}>
           {/* form name and quantity row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="mb-4">
