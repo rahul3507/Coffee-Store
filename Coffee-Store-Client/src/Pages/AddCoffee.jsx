@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 
 const AddCoffee = () => {
   return (
@@ -17,12 +18,12 @@ const AddCoffee = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="name"
               >
-                Supplier
+                Name
               </label>
               <Input
                 type="text"
                 id="name"
-                placeholder="Enter Supplier"
+                placeholder="Enter Coffee Name"
                 className="shadow  appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
@@ -50,7 +51,7 @@ const AddCoffee = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="supplier"
               >
-                Supplier
+                Supplier Name
               </label>
               <Input
                 type="text"
@@ -109,12 +110,32 @@ const AddCoffee = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Add Coffee
-          </button>
+          {/* form photo url row */}
+          <div className="grid grid-cols-1  gap-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="photoUrl"
+              >
+                Photo URL
+              </label>
+              <Input
+                type="text"
+                id="photoUrl"
+                placeholder="Photo URL"
+                className="shadow  appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center mt-6">
+            <Button
+              type="submit"
+              className="w-full bg-amber-300 hover:bg-amber-400 text-black  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Add Coffee
+            </Button>
+          </div>
         </form>
       </div>
     </div>
