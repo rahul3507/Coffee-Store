@@ -29,6 +29,22 @@ const AddCoffee = () => {
 
     // Logic to handle adding coffee goes here
     console.log("Coffee added:", newCoffee);
+
+    //send data to the server
+    fetch("http://localhost:5000/coffee", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Coffee added successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error adding coffee:", error);
+      });
   };
   return (
     <div className="justify-center items-center p-4 flex min-h-screen ">
