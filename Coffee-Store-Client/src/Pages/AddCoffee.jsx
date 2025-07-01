@@ -17,12 +17,12 @@ const AddCoffee = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="name"
               >
-                Coffee Name
+                Supplier
               </label>
               <Input
                 type="text"
                 id="name"
-                placeholder="Enter coffee name"
+                placeholder="Enter Supplier"
                 className="shadow  appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
@@ -30,7 +30,7 @@ const AddCoffee = () => {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="origin"
+                htmlFor="quantity"
               >
                 Available Quantity
               </label>
@@ -38,6 +38,39 @@ const AddCoffee = () => {
                 type="text"
                 id="quantity"
                 placeholder="Available quantity"
+                className="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+
+          {/* form supplier and taste row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="supplier"
+              >
+                Supplier
+              </label>
+              <Input
+                type="text"
+                id="supplier"
+                placeholder="Supplier name"
+                className="shadow  appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="taste"
+              >
+                Taste
+              </label>
+              <Input
+                type="text"
+                id="taste"
+                placeholder="Taste"
                 className="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
