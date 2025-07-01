@@ -1,10 +1,17 @@
 /** @format */
 import toast, { Toaster } from "react-hot-toast";
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import ImageUploader from "../components/ui/ImageUploader";
 
 const AddCoffee = () => {
+  const [photoUrl, setPhotoUrl] = useState("");
+
+  const handleImageUpload = (imageUrl) => {
+    setPhotoUrl(imageUrl);
+  };
+
   const handleAddCoffee = (event) => {
     event.preventDefault();
 
@@ -15,7 +22,6 @@ const AddCoffee = () => {
     const taste = form.taste.value;
     const category = form.category.value;
     const details = form.details.value;
-    const photoUrl = form.photoUrl.value;
 
     const newCoffee = {
       name,
@@ -44,12 +50,14 @@ const AddCoffee = () => {
         if (data.insertedId) {
           toast.success("Coffee added successfully!");
           form.reset(); // Reset the form after successful submission
+          setPhotoUrl(""); // Reset the photo URL state
         }
       })
       .catch((error) => {
         console.error("Error adding coffee:", error);
       });
   };
+
   return (
     <div className="justify-center items-center p-4 flex min-h-screen ">
       <div className="bg-[#F4F3F0]  min-w-full md:min-w-xl lg:min-w-2xl xl:min-w-3xl  m-auto   rounded-lg p-6">
@@ -158,20 +166,18 @@ const AddCoffee = () => {
             </div>
           </div>
 
-          {/* form photo url row */}
-          <div className="grid grid-cols-1  gap-4">
+          {/* form photo upload section */}
+          <div className="grid grid-cols-1 gap-4">
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="photoUrl"
+                htmlFor="photo"
               >
-                Photo URL
+                Coffee Photo
               </label>
-              <Input
-                type="text"
-                id="photoUrl"
-                placeholder="Photo URL"
-                className="shadow  appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              <ImageUploader
+                onImageUpload={handleImageUpload}
+                currentImageUrl={photoUrl}
               />
             </div>
           </div>
