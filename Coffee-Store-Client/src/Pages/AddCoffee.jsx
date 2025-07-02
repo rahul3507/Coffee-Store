@@ -22,6 +22,7 @@ const AddCoffee = () => {
     const taste = form.taste.value;
     const category = form.category.value;
     const details = form.details.value;
+    const price = form.price.value;
 
     const newCoffee = {
       name,
@@ -30,6 +31,7 @@ const AddCoffee = () => {
       taste,
       category,
       details,
+      price,
       photoUrl,
     };
 
@@ -162,6 +164,24 @@ const AddCoffee = () => {
                 id="details"
                 placeholder="Details"
                 className="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+
+          {/* form price row */}
+          <div className="grid grid-cols-1  gap-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="price"
+              >
+                Price
+              </label>
+              <Input
+                type="text"
+                id="price"
+                placeholder="Price"
+                className="shadow  appearance-none bg-white border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
           </div>
