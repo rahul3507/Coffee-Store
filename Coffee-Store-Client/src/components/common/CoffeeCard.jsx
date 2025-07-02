@@ -8,6 +8,7 @@ import { Pencil, Trash } from "lucide-react";
 const CoffeeCard = ({ coffee }) => {
   console.log(coffee);
   const {
+    _id,
     name,
     quantity,
     supplier,
@@ -17,6 +18,10 @@ const CoffeeCard = ({ coffee }) => {
     price,
     photoUrl,
   } = coffee;
+
+  const handleDelete = (_id) => {
+    console.log("Delete button clicked for coffee ID:", _id);
+  };
   return (
     <div className="">
       <CardContainer className="inter-var min-w-60">
@@ -47,7 +52,10 @@ const CoffeeCard = ({ coffee }) => {
                 <Button className="border-2 bg-gray-600 text-xs text-white">
                   <Pencil className="h-2 w-2" />
                 </Button>
-                <Button className="border-2 bg-red-400 text-xs text-black">
+                <Button
+                  onClick={() => handleDelete(_id)}
+                  className="border-2 bg-red-400 text-xs text-black"
+                >
                   <Trash className="h-2 w-2" />
                 </Button>
               </div>
