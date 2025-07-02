@@ -3,6 +3,7 @@
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import { Button } from "../ui/button";
+import { Pencil, Trash } from "lucide-react";
 
 const CoffeeCard = ({ coffee }) => {
   console.log(coffee);
@@ -39,10 +40,15 @@ const CoffeeCard = ({ coffee }) => {
               <p className="flex flex-row">Supplier : {supplier}</p>
               <p className="flex flex-row">Price : {price} Taka</p>
 
-              <div>
-                <Button>View</Button>
-                <Button>
-                  <Trash />
+              <div className="flex flex-row justify-between items-end mt-8">
+                <Button className=" border-2 bg-amber-200 text-xs text-black">
+                  View
+                </Button>
+                <Button className="border-2 bg-gray-600 text-xs text-white">
+                  <Pencil className="h-2 w-2" />
+                </Button>
+                <Button className="border-2 bg-red-400 text-xs text-black">
+                  <Trash className="h-2 w-2" />
                 </Button>
               </div>
             </CardItem>
