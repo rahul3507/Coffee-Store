@@ -31,6 +31,12 @@ async function run() {
 
     const coffeesCollection = client.db("coffeeStore").collection("coffees");
 
+    app.get("/coffee", async (req, res) => {
+      const cursor = coffeesCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.post("/coffee", async (req, res) => {
       const newCoffee = req.body;
       console.log("Adding new coffee:", newCoffee);
