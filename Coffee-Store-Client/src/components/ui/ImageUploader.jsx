@@ -39,7 +39,7 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
   const handleFile = async (file) => {
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      alert("Please select an image file");
+      alert("Please select an image file (PNG, JPG, or GIF)");
       return;
     }
 
@@ -59,33 +59,43 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
       };
       reader.readAsDataURL(file);
 
-      // Upload to Cloudinary
+      // Upload to Cloudinary with proper error handling
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "unsigned_upload"); // Use an unsigned upload preset for simplicity
+      formData.append("upload_preset", "coffee-store");
       formData.append("cloud_name", "dguv2gy23");
+      formData.append("api_key", "973966842822985");
 
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/dguv2gy23/image/upload",
         {
           method: "POST",
           body: formData,
+          headers: {
+            Accept: "application/json",
+          },
         }
       );
 
       if (!response.ok) {
-        throw new Error("Cloudinary upload failed");
+        const errorData = await response.json();
+        throw new Error(
+          `Cloudinary upload failed: ${
+            errorData.error?.message || response.statusText
+          }`
+        );
       }
 
       const data = await response.json();
       const imageUrl = data.secure_url;
 
-      // Call the callback with the Cloudinary image URL
+      // Ensure the callback is called with the valid URL
       onImageUpload(imageUrl);
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
-      alert("Error uploading image. Please try again.");
+      alert(`Error uploading image: ${error.message}. Please try again.`);
       setPreview(currentImageUrl); // Revert to previous image on failure
+      onImageUpload(currentImageUrl); // Reset URL in parent component
     } finally {
       setUploading(false);
     }
