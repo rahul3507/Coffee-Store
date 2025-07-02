@@ -7,9 +7,14 @@ import ImageUploader from "../components/ui/ImageUploader";
 
 const AddCoffee = () => {
   const [photoUrl, setPhotoUrl] = useState("");
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   const handleImageUpload = (imageUrl) => {
     setPhotoUrl(imageUrl);
+  };
+
+  const handleUploadingChange = (uploading) => {
+    setIsImageUploading(uploading);
   };
 
   const handleAddCoffee = (event) => {
@@ -197,6 +202,7 @@ const AddCoffee = () => {
               </label>
               <ImageUploader
                 onImageUpload={handleImageUpload}
+                onUploadingChange={handleUploadingChange}
                 currentImageUrl={photoUrl}
               />
             </div>
@@ -205,7 +211,12 @@ const AddCoffee = () => {
           <div className="flex items-center justify-center mt-6">
             <Button
               type="submit"
-              className="w-full bg-amber-300 hover:bg-amber-400 text-black  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              disabled={isImageUploading}
+              className={`w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                isImageUploading
+                  ? "bg-gray-400 cursor-not-allowed text-gray-600"
+                  : "bg-amber-300 hover:bg-amber-400 text-black"
+              }`}
             >
               Add Coffee
             </Button>

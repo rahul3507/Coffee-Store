@@ -3,13 +3,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "./button";
 
-const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
+const ImageUploader = ({
+  onImageUpload,
+  onUploadingChange,
+  currentImageUrl = "",
+}) => {
   const [dragActive, setDragActive] = useState(false);
   const [preview, setPreview] = useState(currentImageUrl);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Add useEffect to sync preview with currentImageUrl changes
+  // Sync preview with currentImageUrl when it changes
   useEffect(() => {
     setPreview(currentImageUrl);
   }, [currentImageUrl]);
@@ -55,16 +59,10 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
     }
 
     setUploading(true);
+    onUploadingChange?.(true); // Notify parent about upload start
 
     try {
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setPreview(e.target.result);
-      };
-      reader.readAsDataURL(file);
-
-      // Upload to Cloudinary with proper error handling
+      // Upload to Cloudinary
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "coffee-store");
@@ -94,8 +92,9 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
       const data = await response.json();
       const imageUrl = data.secure_url;
 
-      // Ensure the callback is called with the valid URL
-      onImageUpload(imageUrl);
+      // Update preview with the final Cloudinary URL after upload completes
+      setPreview(imageUrl);
+      onImageUpload(imageUrl); // Notify parent with the final URL
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
       alert(`Error uploading image: ${error.message}. Please try again.`);
@@ -103,6 +102,7 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
       onImageUpload(currentImageUrl); // Reset URL in parent component
     } finally {
       setUploading(false);
+      onUploadingChange?.(false); // Notify parent about upload end
     }
   };
 
@@ -120,9 +120,10 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
 
   return (
     <div className="w-full">
-      {!preview ? (
+      {/* Show upload area when no preview exists or during uploading */}
+      {(!preview || uploading) && (
         <div
-          className={`relative border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+          className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
             dragActive
               ? "border-amber-400 bg-amber-50"
               : "border-gray-300 hover:border-amber-300 hover:bg-gray-50"
@@ -169,8 +170,11 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
             </div>
           )}
         </div>
-      ) : (
-        <div className="relative">
+      )}
+
+      {/* Show image preview only when preview exists and not uploading */}
+      {preview && !uploading && (
+        <div className="relative mt-4">
           <div className="border-2 border-gray-200 rounded-lg p-4 bg-white">
             <img
               src={preview}
@@ -194,13 +198,6 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
               </Button>
             </div>
           </div>
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="hidden"
-            accept="image/*"
-            onChange={handleChange}
-          />
         </div>
       )}
     </div>
