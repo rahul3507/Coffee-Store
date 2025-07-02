@@ -5,8 +5,7 @@ import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import { Button } from "../ui/button";
 import { Pencil, Trash } from "lucide-react";
 
-const CoffeeCard = ({ coffee }) => {
-  console.log(coffee);
+const CoffeeCard = ({ coffee, onDelete }) => {
   const {
     _id,
     name,
@@ -31,14 +30,30 @@ const CoffeeCard = ({ coffee }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
+        fetch(`http://localhost:5000/coffee/${_id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ _id }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Coffee deleted successfully:", data);
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your coffee has been deleted.",
+                icon: "success",
+              });
+              // Call the onDelete callback to update the parent state
+              onDelete(_id);
+            }
+          });
       }
     });
   };
+
   return (
     <div className="">
       <CardContainer className="inter-var min-w-60">
