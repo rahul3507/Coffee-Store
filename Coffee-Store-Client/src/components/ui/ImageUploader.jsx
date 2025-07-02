@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "./button";
 
 const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
@@ -8,6 +8,11 @@ const ImageUploader = ({ onImageUpload, currentImageUrl = "" }) => {
   const [preview, setPreview] = useState(currentImageUrl);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
+
+  // Add useEffect to sync preview with currentImageUrl changes
+  useEffect(() => {
+    setPreview(currentImageUrl);
+  }, [currentImageUrl]);
 
   const handleDrag = (e) => {
     e.preventDefault();

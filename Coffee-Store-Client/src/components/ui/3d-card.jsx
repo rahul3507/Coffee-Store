@@ -88,6 +88,7 @@ export const CardItem = ({
       ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
     }
   }, [
+    Tag,
     isMouseEntered,
     translateX,
     translateY,
@@ -108,7 +109,7 @@ export const CardItem = ({
   );
 };
 
-export const useMouseEnter = () => {
+const useMouseEnter = () => {
   const context = useContext(MouseEnterContext);
   if (context === undefined) {
     throw new Error("useMouseEnter must be used within a MouseEnterProvider");
