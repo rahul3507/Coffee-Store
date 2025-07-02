@@ -4,6 +4,7 @@ import React from "react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import { Button } from "../ui/button";
 import { Pencil, Trash } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CoffeeCard = ({ coffee, onDelete }) => {
   const {
@@ -81,9 +82,12 @@ const CoffeeCard = ({ coffee, onDelete }) => {
                 <Button className=" border-2 bg-amber-200 text-xs text-black">
                   View
                 </Button>
-                <Button className="border-2 bg-gray-600 text-xs text-white">
-                  <Pencil className="h-2 w-2" />
-                </Button>
+                <Link
+                  to={`update-coffee/${_id}`}
+                  className="py-2 px-3 border-2 rounded-lg bg-gray-600 text-xs text-white"
+                >
+                  <Pencil className="h-4 w-4" />
+                </Link>
                 <Button
                   onClick={() => handleDelete(_id)}
                   className="border-2 bg-red-400 text-xs text-black"
