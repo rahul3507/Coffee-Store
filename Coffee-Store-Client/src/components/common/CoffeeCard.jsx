@@ -10,11 +10,9 @@ const CoffeeCard = ({ coffee, onDelete }) => {
   const {
     _id,
     name,
-    quantity,
+
     supplier,
-    taste,
-    category,
-    details,
+
     price,
     photoUrl,
   } = coffee;
