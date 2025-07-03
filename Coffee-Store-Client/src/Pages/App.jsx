@@ -1,7 +1,7 @@
 /** @format */
 
 import { Link, useLoaderData } from "react-router-dom";
-import CoffeeCard from "./components/common/CoffeeCard";
+import CoffeeCard from "../components/common/CoffeeCard";
 import { useState } from "react";
 
 function App() {
