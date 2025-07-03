@@ -106,8 +106,12 @@ const ImageUploader = ({
     }
   };
 
-  const onButtonClick = () => {
-    fileInputRef.current?.click();
+  const onButtonClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   const removeImage = () => {
@@ -120,6 +124,15 @@ const ImageUploader = ({
 
   return (
     <div className="w-full">
+      {/* Hidden file input - moved outside conditional rendering */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        className="hidden"
+        accept="image/*"
+        onChange={handleChange}
+      />
+
       {/* Show upload area when no preview exists or during uploading */}
       {(!preview || uploading) && (
         <div
@@ -134,14 +147,6 @@ const ImageUploader = ({
           onDrop={handleDrop}
           onClick={onButtonClick}
         >
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="hidden"
-            accept="image/*"
-            onChange={handleChange}
-          />
-
           {uploading ? (
             <div className="flex flex-col items-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-400 mb-2"></div>
