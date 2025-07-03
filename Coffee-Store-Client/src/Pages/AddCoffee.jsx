@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import ImageUploader from "../components/ui/ImageUploader";
+import { Navigate } from "react-router-dom";
 
 const AddCoffee = () => {
   const [photoUrl, setPhotoUrl] = useState("");
@@ -58,6 +59,7 @@ const AddCoffee = () => {
           toast.success("Coffee added successfully!");
           form.reset(); // Reset the form after successful submission
           setPhotoUrl(""); // Reset the photo URL state
+          Navigate("/"); // Navigate to the home page after adding coffee
         }
       })
       .catch((error) => {
