@@ -4,6 +4,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
   return (
     <div>
       <div className="hero bg-white min-h-screen">
@@ -22,20 +30,26 @@ const SignUp = () => {
             </p>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body">
+            <form onSubmit={handleSignUp} className="card-body">
               <fieldset className="fieldset">
                 <label className="label">Email</label>
-                <input type="email" className="input" placeholder="Email" />
+                <input
+                  type="email"
+                  className="input"
+                  name="email"
+                  placeholder="Email"
+                />
                 <label className="label">Password</label>
                 <input
                   type="password"
                   className="input"
+                  name="password"
                   placeholder="Password"
                 />
 
                 <button className="btn btn-neutral mt-4">Sign Up</button>
               </fieldset>
-            </div>
+            </form>
           </div>
         </div>
       </div>
