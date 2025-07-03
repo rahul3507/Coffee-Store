@@ -1,17 +1,29 @@
 /** @format */
 
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
+
   const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    createUser(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("User signed up:", user);
+      })
+      .catch((error) => {
+        console.error("Error signing up:", error);
+      });
   };
+
   return (
     <div>
       <div className="hero bg-white min-h-screen">
